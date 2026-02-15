@@ -29,8 +29,14 @@ export default function EventsSection({
   maxItems = 3,
   featuredEventImage,
 }: EventsSectionProps) {
-  const resolvedEventImage = useResolvedStaticPath(featuredEventImage);
   const items = events.slice(0, maxItems);
+  const imageSource0 = items[0]?.image ?? featuredEventImage;
+  const imageSource1 = items[1]?.image;
+  const imageSource2 = items[2]?.image;
+  const resolved0 = useResolvedStaticPath(imageSource0);
+  const resolved1 = useResolvedStaticPath(imageSource1);
+  const resolved2 = useResolvedStaticPath(imageSource2);
+  const resolvedImages = [resolved0, resolved1, resolved2];
 
   return (
     <section className="py-16 lg:py-20 bg-warm-gray" aria-labelledby="events-heading">
@@ -46,14 +52,14 @@ export default function EventsSection({
         <div className="space-y-4">
           {items.map((event, index) => {
             const badge = formatDateBadge(event.date);
-            const hasImage = index === 0 && resolvedEventImage;
+            const resolvedEventImage = resolvedImages[index];
+            const eventImageSrc = event.image ?? (index === 0 ? featuredEventImage : undefined);
+            const hasImage = Boolean(resolvedEventImage ?? eventImageSrc);
             return (
               <Link
                 key={event.id}
                 href={event.registrationLink || "#"}
-                className={`flex flex-col sm:flex-row rounded-lg overflow-hidden bg-white border border-neutral-200 shadow-card hover:shadow-card-hover transition-all duration-200 group ${
-                  hasImage ? "sm:min-h-[200px]" : ""
-                }`}
+                className="flex flex-col sm:flex-row rounded-lg overflow-hidden bg-white border border-neutral-200 shadow-card hover:shadow-card-hover transition-all duration-200 group"
               >
                 <div className="flex shrink-0 sm:w-28 lg:w-32 flex-col items-center justify-center bg-primary text-white py-4 px-3 text-center">
                   <span className="font-heading text-2xl font-bold leading-none">{badge.day}</span>
@@ -61,9 +67,9 @@ export default function EventsSection({
                   <span className="text-xs opacity-90">{badge.year}</span>
                 </div>
                 {hasImage ? (
-                  <div className="relative hidden sm:block w-48 lg:w-64 shrink-0 aspect-video sm:aspect-auto sm:h-full min-h-[140px]">
+                  <div className="relative hidden sm:block w-48 lg:w-64 shrink-0 self-stretch overflow-hidden min-h-0">
                     <Image
-                      src={resolvedEventImage ?? featuredEventImage ?? ""}
+                      src={resolvedEventImage ?? eventImageSrc ?? ""}
                       alt=""
                       fill
                       className="object-cover"

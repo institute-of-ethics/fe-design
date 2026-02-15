@@ -118,6 +118,7 @@ export const placeholderEvents: Event[] = [
     location: "Main Conference Hall",
     description: "Our flagship event examining business ethics from multiple stakeholder perspectives.",
     registrationLink: "#",
+    image: "/images/home/event_1.jpg",
   },
   {
     id: "2",
@@ -126,6 +127,7 @@ export const placeholderEvents: Event[] = [
     location: "Virtual",
     description: "Applications open for the annual case competition. First round deadline October 10.",
     registrationLink: "#",
+    image: "/images/home/event_2.jpg",
   },
   {
     id: "3",
