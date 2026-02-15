@@ -58,12 +58,28 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deployment
 
-Build and run:
+### GitHub Pages (automated)
+
+The site deploys to GitHub Pages on every push to `main` via GitHub Actions.
+
+**One-time setup:** In the repository go to **Settings → Pages**. Under "Build and deployment", set **Source** to **GitHub Actions**.
+
+**Live URL:** [https://institute-of-ethics.github.io/fe-design/](https://institute-of-ethics.github.io/fe-design/)
+
+After pushing to `main`, the workflow builds the static site (with base path `/fe-design`) and deploys it. Check the **Actions** tab for build status; the site is usually live within 1–2 minutes.
+
+For production environment variables, add them under **Settings → Secrets and variables → Actions** and reference in `.github/workflows/deploy.yml` if needed.
+
+### Local / other hosting
+
+Build and run locally:
 
 ```bash
 npm run build
 npm run start
 ```
+
+For Google Drive hosting, use `npm run deploy` to build and create `static-site.zip` from the `out` folder, then upload and share as needed.
 
 Set `NEXT_PUBLIC_SITE_URL` for production if using absolute URLs in metadata.
 
