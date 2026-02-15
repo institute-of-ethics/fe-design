@@ -7,6 +7,7 @@ export interface Publication {
   pdfUrl?: string;
   type: string;
   topic: string;
+  image?: string;
 }
 
 export interface Event {
@@ -89,6 +90,7 @@ export const placeholderPublications: Publication[] = [
     abstract: "Examining ethical decision-making in multinational supply chain management.",
     type: "Journal Article",
     topic: "Business Ethics",
+    image: "/images/home/publication_1.jpg",
   },
   {
     id: "2",
@@ -98,6 +100,7 @@ export const placeholderPublications: Publication[] = [
     abstract: "A framework for ethical leadership in technology-driven organizations.",
     type: "Research Report",
     topic: "Leadership",
+    image: "/images/home/publication_2.jpg",
   },
   {
     id: "3",
@@ -107,6 +110,7 @@ export const placeholderPublications: Publication[] = [
     abstract: "Integrating sustainability metrics into governance structures.",
     type: "Working Paper",
     topic: "Sustainability",
+    image: "/images/home/publication_3.jpg",
   },
 ];
 

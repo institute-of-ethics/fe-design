@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { useResolvedStaticPath } from "@/hooks/useResolvedStaticPath";
 import type { Publication } from "@/lib/data";
 
 type PublicationsGridProps = {
@@ -16,6 +20,10 @@ export default function PublicationsGrid({
   maxItems = 3,
 }: PublicationsGridProps) {
   const items = publications.slice(0, maxItems);
+  const resolved0 = useResolvedStaticPath(items[0]?.image);
+  const resolved1 = useResolvedStaticPath(items[1]?.image);
+  const resolved2 = useResolvedStaticPath(items[2]?.image);
+  const resolvedImages = [resolved0, resolved1, resolved2];
 
   return (
     <section className="py-16 lg:py-20 bg-white" aria-labelledby="publications-heading">
@@ -36,26 +44,39 @@ export default function PublicationsGrid({
                 index === items.length - 1 ? "border-b-0" : ""
               }`}
             >
-              <div className="flex flex-col lg:flex-row lg:items-start lg:gap-8">
-                <div className="shrink-0 lg:w-32 text-sm text-neutral-500">
-                  {pub.date}
-                  <span className="hidden lg:inline"> · </span>
-                  <span className="block lg:inline">{pub.type}</span>
-                </div>
-                <div className="mt-2 lg:mt-0 flex-1 min-w-0">
-                  <h3 className="font-heading text-lg lg:text-xl font-semibold text-primary">
-                    {pub.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-neutral-600">{pub.authors.join(", ")}</p>
-                  <p className="mt-2 text-neutral-600">{pub.abstract}</p>
-                  {pub.pdfUrl && (
-                    <Link
-                      href={pub.pdfUrl}
-                      className="mt-3 inline-block text-sm font-semibold text-accent hover:text-accent-dark"
-                    >
-                      Download PDF
-                    </Link>
-                  )}
+              <div
+                className={`flex flex-col lg:flex-row lg:gap-8 ${pub.image ? "lg:items-stretch" : "lg:items-start"}`}
+              >
+                {pub.image ? (
+                  <div className="shrink-0 w-24 h-[120px] lg:w-28 lg:h-[140px] relative rounded overflow-hidden border border-neutral-200 mb-3 lg:mb-0">
+                    <Image
+                      src={resolvedImages[index] ?? pub.image}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="112px"
+                    />
+                  </div>
+                ) : null}
+                <div className="mt-2 lg:mt-0 flex-1 min-w-0 flex flex-col">
+                  <div>
+                    <h3 className="font-heading text-lg lg:text-xl font-semibold text-primary">
+                      {pub.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-neutral-600">{pub.authors.join(", ")}</p>
+                    <p className="mt-2 text-neutral-600">{pub.abstract}</p>
+                    {pub.pdfUrl && (
+                      <Link
+                        href={pub.pdfUrl}
+                        className="mt-3 inline-block text-sm font-semibold text-accent hover:text-accent-dark"
+                      >
+                        Download PDF
+                      </Link>
+                    )}
+                  </div>
+                  <p className="mt-auto pt-3 text-sm text-neutral-500">
+                    {pub.type} | {pub.date}
+                  </p>
                 </div>
               </div>
             </article>
