@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Institute of Ethics — Website
 
-## Getting Started
+Professional, responsive website for the Institute of Ethics built with Next.js 14 (App Router) and Tailwind CSS.
 
-First, run the development server:
+## Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS
+- **Fonts:** Playfair Display (headings), Inter (body) via next/font/google
+
+## Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — Start development server
+- `npm run build` — Production build
+- `npm run start` — Start production server
+- `npm run lint` — Run ESLint
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/` — Routes and page components
+- `src/components/layout/` — Header, Footer, Navigation, Breadcrumbs
+- `src/components/ui/` — Button, Card, Input, SearchBar, Modal
+- `src/components/sections/` — Hero, NewsSection, EventsSection, PublicationsGrid, TeamGrid, etc.
+- `src/lib/data.ts` — Placeholder content and shared data structures
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Home** — Hero, research areas, events, publications, news, newsletter signup
+- **About** — Vision, History, Team
+- **Research** — Areas, Publications (filterable), Speaker Series
+- **Education** — Programs and resources
+- **Outreach** — Events, Symposium
+- **News** — Article grid with category filter
+- **Engage** — Newsletter signup, social links, partnership form
+- **Contact** — Contact form, address, map placeholder
 
-## Deploy on Vercel
+## Responsive Breakpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Mobile: &lt; 640px
+- Tablet: 640px – 1024px
+- Desktop: &gt; 1024px
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Accessibility
+
+- Skip link to main content
+- Semantic HTML and ARIA where needed
+- Keyboard navigation and focus styles
+- Screen reader–friendly labels
+
+## Deployment
+
+Build and run:
+
+```bash
+npm run build
+npm run start
+```
+
+Set `NEXT_PUBLIC_SITE_URL` for production if using absolute URLs in metadata.
+
+## Content and CMS
+
+Placeholder content lives in `src/lib/data.ts`. Replace with a headless CMS or API when ready. Data shapes (Publication, Event, NewsArticle, TeamMember, ResearchArea) are defined for easy integration.
