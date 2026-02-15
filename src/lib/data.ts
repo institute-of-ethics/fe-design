@@ -7,7 +7,7 @@ export interface Publication {
   pdfUrl?: string;
   type: string;
   topic: string;
-  image?: string;
+  image: string;
 }
 
 export interface Event {

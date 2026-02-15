@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { placeholderPublications } from "@/lib/data";
 import { Select } from "@/components/ui/Input";
+import { useResolvedStaticPath } from "@/hooks/useResolvedStaticPath";
 import type { Publication } from "@/lib/data";
 
 const types = Array.from(new Set(placeholderPublications.map((p) => p.type)));
@@ -11,17 +13,33 @@ const topics = Array.from(new Set(placeholderPublications.map((p) => p.topic)));
 const years = Array.from(new Set(placeholderPublications.map((p) => p.date.slice(0, 4)))).sort((a, b) => b.localeCompare(a));
 
 function PublicationRow({ pub }: { pub: Publication }) {
+  const resolvedImage = useResolvedStaticPath(pub.image);
+  const imageSrc = resolvedImage ?? pub.image;
+
   return (
     <article className="py-6 border-b border-neutral-200 last:border-0">
-      <p className="text-sm text-neutral-500">{pub.date} · {pub.type} · {pub.topic}</p>
-      <h2 className="font-heading text-lg font-semibold text-neutral-900 mt-1">{pub.title}</h2>
-      <p className="text-sm text-neutral-600 mt-1">{pub.authors.join(", ")}</p>
-      <p className="mt-2 text-neutral-600">{pub.abstract}</p>
-      {pub.pdfUrl && (
-        <a href={pub.pdfUrl} className="mt-2 inline-block text-sm font-medium text-primary hover:text-primary-dark">
-          Download PDF
-        </a>
-      )}
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+        <div className="shrink-0 w-full sm:w-28 h-[140px] sm:h-[180px] relative rounded overflow-hidden border border-neutral-200 bg-neutral-100">
+          <Image
+            src={imageSrc}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, 112px"
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm text-neutral-500">{pub.date} · {pub.type} · {pub.topic}</p>
+          <h2 className="font-heading text-lg font-semibold text-neutral-900 mt-1">{pub.title}</h2>
+          <p className="text-sm text-neutral-600 mt-1">{pub.authors.join(", ")}</p>
+          <p className="mt-2 text-neutral-600">{pub.abstract}</p>
+          {pub.pdfUrl && (
+            <a href={pub.pdfUrl} className="mt-2 inline-block text-sm font-medium text-primary hover:text-primary-dark">
+              Download PDF
+            </a>
+          )}
+        </div>
+      </div>
     </article>
   );
 }
