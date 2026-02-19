@@ -1,6 +1,6 @@
 # Outreach Section Pages
 
-**Routes**: `/outreach`, `/outreach/events`, `/outreach/symposium`
+**Routes**: `/outreach`, `/outreach/events`, `/outreach/events/[slug]`, `/outreach/symposium`
 
 **Purpose**: Promote events, annual symposium, and community engagement. Overview links to Events and Symposium.
 
@@ -48,3 +48,28 @@
 
 - Same shell: Breadcrumbs, h1, intro (mt-6 text-lg max-w-3xl).
 - Breadcrumbs: Home > Outreach > [Events | Symposium] on sub-pages.
+
+---
+
+## Event Detail (`/outreach/events/[slug]`)
+
+**Route**: `/outreach/events/[slug]`
+
+**Purpose**: Full detail view for a single event. Reached from the Events listing via EventCard.
+
+**Navigation context**: Breadcrumbs: Home > Outreach > Events > [event title].
+
+**Layout Structure**:
+- **Breadcrumbs**: Home, Outreach (href /outreach), Events (href /outreach/events), current title (no href).
+- **Back link**: text-sm text-primary font-medium "← Back to Events" linking to /outreach/events; mt-4.
+- **Hero block**: mt-8 flex flex-col lg:flex-row gap-8 items-start.
+  - **Date badge** (large, standalone): shrink-0 w-24 flex flex-col items-center justify-center bg-primary text-white py-5 px-4 rounded-lg text-center. Day (font-heading text-3xl font-bold), month (text-xs uppercase tracking-wider mt-1), year (text-xs opacity-90 mt-0.5).
+  - **Content**: h1 title (font-heading text-3xl lg:text-4xl font-semibold text-neutral-900); location (mt-2 text-sm text-neutral-500 flex items-center gap-1); full description (mt-4 text-neutral-600 leading-relaxed); [Button](../components/ui-components.md#button) primary size lg "Register Now" (mt-6) if registrationLink, else [Button](../components/ui-components.md#button) primary size lg "Learn More" with disabled state.
+- **Event image**: If present; mt-8 w-full max-h-[400px] object-cover rounded-lg.
+- **Footer**: mt-12 pt-8 border-t border-neutral-200; [Button](../components/ui-components.md#button) outline size sm "← Back to Events" href /outreach/events.
+
+**Data**: `Event` by slug. 404 if not found.
+
+**Components used**: Breadcrumbs, Button.
+
+**Responsive**: Hero block stacks on mobile (date badge on top, content below).

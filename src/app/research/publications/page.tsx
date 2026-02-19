@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import { placeholderPublications } from "@/lib/data";
 import { Select } from "@/components/ui/Input";
@@ -30,7 +31,11 @@ function PublicationRow({ pub }: { pub: Publication }) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm text-neutral-500">{pub.date} · {pub.type} · {pub.topic}</p>
-          <h2 className="font-heading text-lg font-semibold text-neutral-900 mt-1">{pub.title}</h2>
+          <h2 className="font-heading text-lg font-semibold text-neutral-900 mt-1">
+            <Link href={`/research/publications/${pub.slug}`} className="text-neutral-900 hover:text-primary transition-colors">
+              {pub.title}
+            </Link>
+          </h2>
           <p className="text-sm text-neutral-600 mt-1">{pub.authors.join(", ")}</p>
           <p className="mt-2 text-neutral-600">{pub.abstract}</p>
           {pub.pdfUrl && (

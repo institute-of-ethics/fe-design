@@ -1,6 +1,6 @@
 # News & Updates Page
 
-**Route**: `/news`
+**Routes**: `/news`, `/news/[slug]`
 
 **Purpose**: List press releases, announcements, and case competition updates. Users can filter by category and scan cards to open individual items (anchor or detail page).
 
@@ -44,3 +44,27 @@
 ## Consistency
 
 - Same page shell: Breadcrumbs, h1, intro. Filtering UI is similar to Publications (Select dropdowns) but single filter here.
+
+---
+
+## News Article Detail (`/news/[slug]`)
+
+**Route**: `/news/[slug]`
+
+**Purpose**: Full article view for a single news item. Reached from the News listing via card link.
+
+**Navigation context**: Breadcrumbs: Home > News & Updates > [article title].
+
+**Layout Structure**:
+- **Breadcrumbs**: Home, News & Updates (href /news), current title (no href, aria-current="page").
+- **Back link**: text-sm text-primary font-medium "← Back to News" linking to /news; mt-4.
+- **Featured image**: If present; w-full max-h-[480px] object-cover rounded-lg mt-6.
+- **Article header**: mt-8; [CardMeta](../components/ui-components.md#cardmeta) date · category (text-sm neutral-500); h1 title (font-heading text-3xl lg:text-4xl font-semibold text-neutral-900 mt-2); author (mt-2 text-sm neutral-600).
+- **Body**: mt-8 prose max-w-3xl; richtext content rendered as HTML. Headings use font-heading. Links styled as primary.
+- **Footer**: mt-12 pt-8 border-t border-neutral-200; [Button](../components/ui-components.md#button) outline size sm "← Back to News" href /news.
+
+**Data**: `NewsArticle` by slug. 404 if not found.
+
+**Components used**: Breadcrumbs, Button, CardMeta (styles applied inline).
+
+**Responsive**: Single column; max-w-3xl for prose; image full-width and height-capped.

@@ -13,12 +13,15 @@ About                   → /about
 Research                → /research
   ├── Areas of Research → /research/areas
   ├── Publications      → /research/publications
+  │   └── [slug]        → /research/publications/[slug]
   └── Speaker Series     → /research/speaker-series
 Education               → /education
 Outreach                → /outreach
   ├── Events            → /outreach/events
+  │   └── [slug]        → /outreach/events/[slug]
   └── Symposium         → /outreach/symposium
 News & Updates          → /news
+  └── [slug]            → /news/[slug]
 Engage                  → /engage
 Contact                 → /contact
 ```
@@ -33,6 +36,8 @@ Contact                 → /contact
 - **Outreach group**: Outreach (overview) plus Events, Symposium
 
 Single-level items (Education, News & Updates, Engage, Contact) have no sub-pages in the nav.
+
+**Detail routes** (`/news/[slug]`, `/research/publications/[slug]`, `/outreach/events/[slug]`) are not in the main nav. They receive breadcrumbs from their parent listing. Linking to them is done from cards on their respective listing pages.
 
 ## Breadcrumb Logic
 

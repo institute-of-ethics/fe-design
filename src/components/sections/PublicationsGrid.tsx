@@ -44,8 +44,9 @@ export default function PublicationsGrid({
                 index === items.length - 1 ? "border-b-0" : ""
               }`}
             >
-              <div
-                className={`flex flex-col lg:flex-row lg:gap-8 ${pub.image ? "lg:items-stretch" : "lg:items-start"}`}
+              <Link
+                href={`/research/publications/${pub.slug}`}
+                className={`flex flex-col lg:flex-row lg:gap-8 group block ${pub.image ? "lg:items-stretch" : "lg:items-start"}`}
               >
                 {pub.image ? (
                   <div className="shrink-0 w-24 h-[120px] lg:w-28 lg:h-[140px] relative rounded overflow-hidden border border-neutral-200 mb-3 lg:mb-0">
@@ -60,25 +61,22 @@ export default function PublicationsGrid({
                 ) : null}
                 <div className="mt-2 lg:mt-0 flex-1 min-w-0 flex flex-col">
                   <div>
-                    <h3 className="font-heading text-lg lg:text-xl font-semibold text-primary">
+                    <h3 className="font-heading text-lg lg:text-xl font-semibold text-primary group-hover:text-primary-light transition-colors">
                       {pub.title}
                     </h3>
                     <p className="mt-1 text-sm text-neutral-600">{pub.authors.join(", ")}</p>
                     <p className="mt-2 text-neutral-600">{pub.abstract}</p>
                     {pub.pdfUrl && (
-                      <Link
-                        href={pub.pdfUrl}
-                        className="mt-3 inline-block text-sm font-semibold text-accent hover:text-accent-dark"
-                      >
-                        Download PDF
-                      </Link>
+                      <span className="mt-3 inline-block text-sm font-semibold text-accent">
+                        Download PDF →
+                      </span>
                     )}
                   </div>
                   <p className="mt-auto pt-3 text-sm text-neutral-500">
                     {pub.type} | {pub.date}
                   </p>
                 </div>
-              </div>
+              </Link>
             </article>
           ))}
         </div>

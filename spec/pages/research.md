@@ -1,6 +1,6 @@
 # Research Section Pages
 
-**Routes**: `/research`, `/research/areas`, `/research/publications`, `/research/speaker-series`
+**Routes**: `/research`, `/research/areas`, `/research/publications`, `/research/publications/[slug]`, `/research/speaker-series`
 
 **Purpose**: Showcase research areas, publications (filterable), and speaker series/collaborations. Research overview links to three sub-pages.
 
@@ -57,3 +57,26 @@
 
 - Same page shell pattern: Breadcrumbs, h1, intro (mt-6 text-lg max-w-3xl).
 - Sub-pages: Home > Research > [current] in breadcrumbs.
+
+---
+
+## Publication Detail (`/research/publications/[slug]`)
+
+**Route**: `/research/publications/[slug]`
+
+**Purpose**: Full detail view for a single publication. Reached from the Publications listing via title link.
+
+**Navigation context**: Breadcrumbs: Home > Research > Publications > [publication title].
+
+**Layout Structure**:
+- **Breadcrumbs**: Home, Research (href /research), Publications (href /research/publications), current title (no href).
+- **Back link**: text-sm text-primary font-medium "← Back to Publications" linking to /research/publications; mt-4.
+- **Two-column layout** (lg): Left 1/3 — cover thumbnail (aspect-[3/4] max-w-[200px] rounded overflow-hidden border border-neutral-200; bg-neutral-100 placeholder if no image). Right 2/3 — detail content.
+- **Detail content**: h1 title (font-heading text-3xl lg:text-4xl font-semibold text-neutral-900); authors (mt-2 text-base text-neutral-600); meta line (mt-3 text-sm text-neutral-500): year · type · topic; abstract heading h2 "Abstract" (mt-8 font-heading text-xl font-semibold); abstract paragraph (mt-2 text-neutral-600); [Button](../components/ui-components.md#button) primary size md "Download PDF" (mt-6) if pdfUrl present.
+- **Footer**: mt-12 pt-8 border-t border-neutral-200; [Button](../components/ui-components.md#button) outline size sm "← Back to Publications" href /research/publications.
+
+**Data**: `Publication` by slug. 404 if not found.
+
+**Components used**: Breadcrumbs, Button.
+
+**Responsive**: Two columns from lg; stacks on mobile (thumbnail above, then content).

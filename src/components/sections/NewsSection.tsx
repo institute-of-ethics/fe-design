@@ -39,7 +39,7 @@ export default function NewsSection({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
           {featured && (
             <article className="lg:col-span-2 rounded-lg overflow-hidden bg-white border border-neutral-200 shadow-card hover:shadow-card-hover transition-shadow">
-              <Link href={`/news#${featured.id}`} className="block group">
+              <Link href={`/news/${featured.slug}`} className="block group">
                 <div className="relative aspect-[16/10] bg-warm-gray overflow-hidden">
                   {featuredImage ? (
                     <Image
@@ -70,7 +70,7 @@ export default function NewsSection({
                 key={article.id}
                 className="rounded-lg border border-neutral-200 bg-warm-ivory/50 p-5 hover:border-primary/30 hover:shadow-card transition-all"
               >
-                <Link href={`/news#${article.id}`} className="block group">
+                <Link href={`/news/${article.slug}`} className="block group">
                   <p className="text-xs text-neutral-500">{article.date} · {article.category}</p>
                   <h3 className="font-heading text-lg font-semibold text-primary mt-1 group-hover:text-primary-light transition-colors line-clamp-2">
                     {article.title}

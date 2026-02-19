@@ -37,7 +37,7 @@ export default function NewsPage() {
       </div>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((article) => (
-          <Card key={article.id} as="article">
+          <Card key={article.id} href={`/news/${article.slug}`} as="article">
             <CardContent>
               <CardMeta>{article.date} · {article.category}</CardMeta>
               <CardTitle as="h2" className="mt-1">

@@ -58,7 +58,7 @@ export default function EventsSection({
             return (
               <Link
                 key={event.id}
-                href={event.registrationLink || "#"}
+                href={`/outreach/events/${event.slug}`}
                 className="flex flex-col sm:flex-row rounded-lg overflow-hidden bg-white border border-neutral-200 shadow-card hover:shadow-card-hover transition-all duration-200 group"
               >
                 <div className="flex shrink-0 sm:w-28 lg:w-32 flex-col items-center justify-center bg-primary text-white py-4 px-3 text-center">
