@@ -110,43 +110,139 @@ Payment milestones can be tied to phase completions (e.g. Phase 1–2, Phase 3, 
 
 ## 6. Financials & Terms
 
-### 6.1 Cost Breakdown (Categories)
+All amounts are in **USD**. Design fees are not included; the design is already specified in the `spec` folder.
 
-- **Development**  
-  Effort for architecture, CMS setup, frontend (all pages and components), search, forms, integrations, deployment, and documentation. Priced per phase or as a fixed project fee as agreed.
+### 6.1 Development Cost
 
-- **Design**  
-  Design is already specified in the `spec` folder. If no further visual or UX scope is added, design cost may be limited to any small refinements or asset preparation; otherwise design fees to be quoted separately.
+Development is estimated at **Vietnam outsourcing market pricing** for one Senior Full-Stack Developer (full-time, 40 hrs/week). Applied rate: **$35/hr** (market range $30–$40/hr for senior full-stack, 2025–2026).
 
-- **Third-party and operational services**  
-  - **GCP**: Cloud Run, Cloud SQL, Cloud Storage, Load Balancer, CDN, Secret Manager, Cloud Build (usage-based; we will provide an estimated monthly range).  
-  - **Resend**: Transactional email (usage-based; typically low volume).  
-  - **Loops**: Newsletter/audience management (subscription tier to be chosen by client).  
-  - **Google Maps Embed API**: Typically free within quotas; any excess usage is minimal.  
-  - **Google Analytics 4**: Free.  
-  - **Domain and SSL**: Managed as part of GCP or your existing registrar; cost passed through or quoted separately.
+| Phase | Dev Hours | Cost (at $35/hr) |
+|-------|-----------|------------------|
+| Phase 1: Discovery & Architecture | 40 hrs | $1,400 |
+| Phase 2: CMS & Backend Setup | 40 hrs | $1,400 |
+| Phase 3: Frontend Development | 160 hrs | $5,600 |
+| Phase 4: Dev Support (during client content entry) | 20 hrs | $700 |
+| Phase 5: QA & UAT | 60 hrs | $2,100 |
+| Phase 6: Launch & Deployment | 20 hrs | $700 |
+| **Total** | **340 hrs** | **$11,900** |
 
-A detailed quote will list these categories with fixed and/or estimated recurring costs.
+**Fixed-price total: $11,900** (no design fee).
 
-### 6.2 Monthly Operational Costs (Estimate)
+**Payment milestones (tied to phase completion):**
 
-After launch, ongoing costs are mainly:
+| Milestone | Amount |
+|-----------|--------|
+| 30% on Phase 1–2 completion | $3,570 |
+| 40% on Phase 3 completion | $4,760 |
+| 30% on Phase 5–6 sign-off | $3,570 |
 
-- GCP (compute, database, storage, egress).  
-- Resend and Loops according to usage/tier.  
-- Domain renewal if we manage it.
+### 6.2 Infrastructure Initial Setup Cost
 
-We will provide a one-page “run rate” estimate for the first 12 months based on expected traffic and content volume.
+One-time cost during the ~6-week development period (Phases 1–3), before launch. Traffic is zero or internal-only. Client already has a domain; no registration cost.
 
-### 6.3 Maintenance and Post-Launch Support
+| Item | Est. Cost (USD) | Notes |
+|------|-----------------|-------|
+| GCP Cloud SQL (db-g1-small, ~6 weeks) | $38 | $25.55/month × 1.5 months |
+| GCP Load Balancer (~6 weeks) | $27 | Always-on component |
+| GCP Cloud Run (3 services, minimal testing) | $5 | Near-zero at zero traffic |
+| GCP Cloud Storage (test media) | $1 | Negligible |
+| GCP Cloud CDN + Artifact Registry | $1 | Minimal usage |
+| GCP Cloud Build | $0 | Within free tier (120 min/day) |
+| GCP Secret Manager | $0 | Negligible |
+| Resend (transactional email) | $0 | Free tier: up to 3,000 emails/month |
+| Loops (newsletter) | $0 | Free tier: up to 1,000 contacts |
+| Google Maps Embed API | $0 | Free within standard quota |
+| Google Analytics 4 | $0 | Free |
+| Managed SSL certificate | $0 | Google-managed, free |
+| **Total Initial Infrastructure** | **~$72** | |
 
-- **In scope for proposal (optional)**  
-  A defined post-launch period (e.g. 30–90 days) for bug fixes, small tweaks, and security/Strapi updates. Can be quoted as a retainer or fixed fee.
+### 6.3 Monthly Operational Costs (Post-Launch)
 
-- **Ongoing**  
-  Beyond that, maintenance (patches, Strapi upgrades, dependency updates) and any new features can be covered by a separate support or retainer agreement.
+Ongoing costs depend on traffic. Three scenarios; all prices USD, GCP us-central1 region.
 
-### 6.4 Assumptions (What We Expect From You)
+**Traffic tiers (for reference):**
+
+| Phase | Expected DAU | Description |
+|-------|--------------|-------------|
+| Early Launch | 10–30 | Mostly internal staff, students, and immediate partners. |
+| Steady State | 50–200 | Regular traffic from researchers, students, and organic search. |
+| Event Peaks | 500–1,500+ | High traffic during symposiums, case competitions, or when a major paper is cited. |
+
+#### Tier 1 — Early Launch (10–30 DAU)
+
+| Service | Monthly Cost (USD) | Notes |
+|---------|--------------------|-------|
+| Cloud Run: Next.js (min 1 instance, 0.5 vCPU / 512 MB) | $8 | Always-warm for responsiveness |
+| Cloud Run: Strapi (min 0) | $2 | Only runs on admin access |
+| Cloud Run: Meilisearch (min 0) | $2 | Only runs on search queries |
+| Cloud SQL db-g1-small (1 shared vCPU, 1.7 GB) | $26 | Strapi database |
+| Cloud SQL Storage (10 GB SSD) | $2 | $0.17/GB/month |
+| Cloud Storage GCS (2 GB media) | $1 | $0.02/GB/month |
+| Cloud CDN (egress ~5 GB) | $1 | $0.02/GB first 10 TB |
+| Cloud Load Balancer | $19 | Fixed forwarding rule + minimal data processing |
+| GCP Miscellaneous (Artifact Registry, Secret Manager) | $1 | Negligible usage |
+| Resend | $0 | Free tier (3,000 emails/month) |
+| Loops | $0 | Free tier (1,000 contacts) |
+| Google Maps, GA4 | $0 | Free |
+| **Total** | **~$62/month** | |
+
+#### Tier 2 — Steady State (50–200 DAU)
+
+| Service | Monthly Cost (USD) | Notes |
+|---------|--------------------|-------|
+| Cloud Run: Next.js (min 1, 1 vCPU / 1 GB) | $14 | Upgraded for responsiveness |
+| Cloud Run: Strapi (min 1) | $5 | Keep warm for editor use |
+| Cloud Run: Meilisearch (min 0) | $4 | Search queries growing |
+| Cloud SQL db-n1-standard-1 (1 vCPU, 3.75 GB) | $50 | Production stability |
+| Cloud SQL Storage (20 GB SSD) + backups | $5 | Storage + automated daily backups |
+| Cloud Storage GCS (10 GB media) | $1 | Growing media library |
+| Cloud CDN (egress ~25 GB) | $3 | More page loads and media |
+| Cloud Load Balancer | $21 | More data processing volume |
+| GCP Miscellaneous | $1 | |
+| Resend | $0 | Free tier still sufficient |
+| Loops (Starter — 2,500 contacts) | $49 | When list exceeds 1,000 contacts |
+| Google Maps, GA4 | $0 | Free |
+| **Total (with Loops)** | **~$153/month** | |
+| **Total (without Loops, list under 1,000)** | **~$104/month** | |
+
+#### Tier 3 — Event Peak Month (500–1,500+ DAU)
+
+Symposiums, competitions, or media-cited publications. Cloud Run autoscales; no pre-provisioning.
+
+| Service | Monthly Cost (USD) | Notes |
+|---------|--------------------|-------|
+| Cloud Run: Next.js (autoscales 1→5 during events) | $28 | ~3 event days/month |
+| Cloud Run: Strapi (autoscales) | $7 | |
+| Cloud Run: Meilisearch (autoscales) | $6 | Heavy search during events |
+| Cloud SQL db-n1-standard-1 | $50 | Connection pooling for peaks |
+| Cloud SQL Storage + backups | $5 | |
+| Cloud Storage GCS (20 GB media) | $2 | More uploads pre-event |
+| Cloud CDN (egress ~100 GB) | $8 | CDN absorbs peak page loads |
+| Cloud Load Balancer | $27 | Higher data processing at peak |
+| GCP Miscellaneous | $2 | |
+| Resend | $0 | Free tier |
+| Loops (Starter) | $49 | |
+| Google Maps, GA4 | $0 | Free |
+| **Total** | **~$184/month** | For a month with major event(s) |
+
+#### Monthly Cost Summary
+
+| Traffic Tier | DAU Range | Monthly Cost (USD) |
+|--------------|-----------|--------------------|
+| Early Launch | 10–30 | ~$62 |
+| Steady State | 50–200 | ~$104–$153 |
+| Event Peak Month | 500–1,500+ | ~$184 |
+
+
+### 6.4 Maintenance and Post-Launch Support
+
+- **30-day warranty**  
+  Bug fixes included at no charge after launch.
+
+- **Monthly retainer (optional)**  
+  $300–$500/month — dependency updates, Strapi version upgrades, security patches, and up to 4 hrs of minor change requests.
+
+### 6.5 Assumptions (What We Expect From You)
 
 - **Content and assets**  
   You will provide final copy for static pages (e.g. Vision, History, Education) and any brand assets (logo, approved imagery). You will populate the CMS with news, events, publications, and team information after Phase 4 onboarding.
@@ -159,6 +255,17 @@ We will provide a one-page “run rate” estimate for the first 12 months based
 
 - **Third-party terms**  
   Use of Resend, Loops, Google (Maps, GA4), and GCP is subject to their respective terms; you accept responsibility for compliance (e.g. privacy, marketing consent) for newsletter and contact data.
+
+### 6.6 Full Cost Summary
+
+| Item | Cost (USD) |
+|------|------------|
+| Development (fixed price, 340 hrs) | $11,900 |
+| Infrastructure setup (6-week dev period) | ~$72 |
+| Monthly operations (Early Launch) | ~$62/month |
+| Monthly operations (Steady State) | ~$104–$153/month |
+| Monthly operations (Event Peak) | ~$184/month |
+| Post-launch retainer (optional) | $300–$500/month |
 
 ---
 
