@@ -20,6 +20,13 @@ The Institute of Ethics website presents the institute's mission, research, educ
 
 ## Specification Index
 
+### Project & Architecture
+
+| Document | Description |
+|----------|-------------|
+| [SAD.md](SAD.md) | Software Architecture Document — tech stack, CMS, search, infra, security (developers) |
+| [PROJECT-PROPOSAL.md](PROJECT-PROPOSAL.md) | Project proposal — scope, timeline, financials, assumptions (client) |
+
 ### Foundation
 
 | Document | Description |
